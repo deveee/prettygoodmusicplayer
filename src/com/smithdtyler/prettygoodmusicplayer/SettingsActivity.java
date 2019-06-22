@@ -151,7 +151,8 @@ public class SettingsActivity extends PreferenceActivity {
 			if (which == 1) {
 				dialog.dismiss(); // TODO use cancel instead? What's the
 									// difference?
-				if (path.getParentFile() != null) {
+				if (path.getParentFile() != null &&
+					Utils.getPotentialSubDirectories(path.getParentFile()).size() > 0) {
 					path = path.getParentFile();
 				}
 				files = Utils.getPotentialSubDirectories(path);
