@@ -203,10 +203,10 @@ public class Utils {
 			ext = Environment.getRootDirectory();
 			return ext;
 		}
-		File parent = ext.getParentFile();
-		if (parent != null) {
-			return parent;
-		}
+		//File parent = ext.getParentFile();
+		//if (parent != null) {
+		//	return parent;
+		//}
 		return ext;
 	}
 
