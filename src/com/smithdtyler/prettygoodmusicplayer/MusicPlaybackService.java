@@ -19,6 +19,7 @@
 package com.smithdtyler.prettygoodmusicplayer;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -113,6 +114,8 @@ public class MusicPlaybackService extends Service {
 
 	private static int uniqueid = new String("Music Playback Service")
 	.hashCode();
+	
+	private String channelid = "PrettyGoodMusicPlayer";
 
 	private OnAudioFocusChangeListener audioFocusListener = new PrettyGoodAudioFocusChangeListener();
 
@@ -214,9 +217,18 @@ public class MusicPlaybackService extends Service {
 		resultIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
 				resultIntent, 0);
+					
+	    NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+	
+	    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+	        CharSequence name = "PrettyGoodMusicPlayer";
+	        int importance = NotificationManager.IMPORTANCE_LOW;
+	        NotificationChannel mChannel = new NotificationChannel(channelid, name, importance);
+	        mNotificationManager.createNotificationChannel(mChannel);
+	    }
 
 		Builder builder = new NotificationCompat.Builder(
-				this.getApplicationContext());
+				this.getApplicationContext(), channelid);
 
 		String contentText = getResources().getString(R.string.ticker_text);
 		if (songFile != null) {
@@ -751,7 +763,7 @@ public class MusicPlaybackService extends Service {
 				resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 		Builder builder = new NotificationCompat.Builder(
-				this.getApplicationContext());
+				this.getApplicationContext(), channelid);
 		int icon = R.drawable.ic_pgmp_launcher;
 		String contentText = getResources().getString(R.string.ticker_text);
 		if (songFile != null) {
