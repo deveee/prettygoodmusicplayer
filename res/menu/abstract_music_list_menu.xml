@@ -5,7 +5,8 @@
     <item
         android:id="@+id/action_now_playing"
         android:orderInCategory="100"
-        android:showAsAction="never"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_action_play"
         android:title="@string/title_activity_now_playing"/>
     <item
         android:id="@+id/action_settings"
