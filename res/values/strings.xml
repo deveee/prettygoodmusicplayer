@@ -56,5 +56,11 @@
     <string name="resume_on_reconnect">Resume on Reconnect</string>
     <string name="podcasts_and_audiobooks_title">Podcasts and Audiobooks</string>
     <string name="audiobook_mode">Audiobook Mode</string>
-    
+
+    <!-- **** -->
+    <!-- Misc -->
+    <!-- **** -->
+
+    <string name="not_granted">Required permission wasn\'t granted, PrettyGoodMusicPlayer can\'t run without it</string>
+        
 </resources>
