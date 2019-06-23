@@ -30,6 +30,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.media.AudioManager.OnAudioFocusChangeListener;
 import android.media.MediaPlayer;
@@ -220,7 +221,7 @@ public class MusicPlaybackService extends Service {
 					
 	    NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 	
-	    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+	    if (android.os.Build.VERSION.SDK_INT >= 26) {
 	        CharSequence name = "PrettyGoodMusicPlayer";
 	        int importance = NotificationManager.IMPORTANCE_LOW;
 	        NotificationChannel mChannel = new NotificationChannel(channelid, name, importance);
@@ -808,8 +809,10 @@ public class MusicPlaybackService extends Service {
 		Notification notification;
 		if(audiobookMode){
 			notification = builder
+					.setStyle(new android.support.v4.media.app.NotificationCompat.MediaStyle()) 
 					.setContentText(contentText)
 					.setSmallIcon(icon)
+					.setLargeIcon(BitmapFactory.decodeResource(getResources(), icon))
 					.setWhen(System.currentTimeMillis())
 					.setContentIntent(pendingIntent)
 					.setContentTitle(
@@ -820,8 +823,10 @@ public class MusicPlaybackService extends Service {
 							.build();
 		} else {
 			notification = builder
+					.setStyle(new android.support.v4.media.app.NotificationCompat.MediaStyle()) 
 					.setContentText(contentText)
 					.setSmallIcon(icon)
+					.setLargeIcon(BitmapFactory.decodeResource(getResources(), icon))
 					.setWhen(System.currentTimeMillis())
 					.setContentIntent(pendingIntent)
 					.setContentTitle(
