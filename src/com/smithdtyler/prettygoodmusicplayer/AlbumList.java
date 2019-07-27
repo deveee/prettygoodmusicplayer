@@ -1,6 +1,7 @@
 /**
    The Pretty Good Music Player
    Copyright (C) 2014  Tyler Smith
+   Copyright (C) 2019  Dawid Gan
  
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
