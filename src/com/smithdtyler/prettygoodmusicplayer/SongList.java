@@ -27,6 +27,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -53,6 +54,8 @@ public class SongList extends AbstractMusicList {
 	private int resumeFilePos = -1;
 	private int resumeProgress;
 	private String resume;
+	private String artistName;
+	private String album;
 	private String artistDir;
 	private File albumDir;
 	private boolean audiobookMode;
@@ -187,8 +190,8 @@ public class SongList extends AbstractMusicList {
 		
 		 // Get the message from the intent
 	    Intent intent = getIntent();
-	    final String artistName = intent.getStringExtra(ArtistList.ARTIST_NAME);
-	    final String album = intent.getStringExtra(AlbumList.ALBUM_NAME);
+	    artistName = intent.getStringExtra(ArtistList.ARTIST_NAME);
+	    album = intent.getStringExtra(AlbumList.ALBUM_NAME);
 	    artistDir = intent.getStringExtra(ArtistList.ARTIST_ABS_PATH_NAME);
 	    
 		ActionBar actionBar = getActionBar();
@@ -234,36 +237,15 @@ public class SongList extends AbstractMusicList {
         ListView lv = (ListView) findViewById(R.id.songListView);
         lv.setAdapter(simpleAdpt);
         
-        // React to user clicks on item
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-             public void onItemClick(AdapterView<?> parentAdapter, View view, int position,
-                                     long id) {
-            	 
-            	 Intent intent = new Intent(SongList.this, NowPlaying.class);
-            	 intent.putExtra(AlbumList.ALBUM_NAME, album);
-            	 intent.putExtra(ArtistList.ARTIST_NAME, artistName);
-            	 String[] songNamesArr = new String[songAbsFileNameList.size()];
-            	 songAbsFileNameList.toArray(songNamesArr);
-            	 intent.putExtra(SONG_ABS_FILE_NAME_LIST, songNamesArr);
-            	 intent.putExtra(ArtistList.ARTIST_ABS_PATH_NAME, artistDir);
-            	 intent.putExtra(NowPlaying.KICKOFF_SONG, true);
-
-            	 if(hasResume){
-            		 if(position == 0){
-   	            		 intent.putExtra(SONG_ABS_FILE_NAME_LIST_POSITION, resumeFilePos);
-   	            		 intent.putExtra(MusicPlaybackService.TRACK_POSITION, resumeProgress);
-            		 } else {
-            			 // a 'resume' option has been added to the beginning of the list
-            			 // so adjust the selection to compensate
-    	            	 intent.putExtra(SONG_ABS_FILE_NAME_LIST_POSITION, position - 1);
-            		 }
-            	 } else {
-	            	 intent.putExtra(SONG_ABS_FILE_NAME_LIST_POSITION, position);
-            	 }
-            	 startActivity(intent);
-             }
-        });
+		// React to user clicks on item
+		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() 
+		{
+			public void onItemClick(AdapterView<?> parentAdapter, View view, 
+						int position, long id) 
+			{
+				startPlaying(position);
+			}
+		});
 
 		lv.setOnLongClickListener(new View.OnLongClickListener() {
 			@Override
@@ -273,6 +255,39 @@ public class SongList extends AbstractMusicList {
 			}
 		});
 
+	}
+	
+	private void startPlaying(int position)
+	{
+		Intent intent = new Intent(SongList.this, NowPlaying.class);
+		intent.putExtra(AlbumList.ALBUM_NAME, album);
+		intent.putExtra(ArtistList.ARTIST_NAME, artistName);
+		String[] songNamesArr = new String[songAbsFileNameList.size()];
+		songAbsFileNameList.toArray(songNamesArr);
+		intent.putExtra(SONG_ABS_FILE_NAME_LIST, songNamesArr);
+		intent.putExtra(ArtistList.ARTIST_ABS_PATH_NAME, artistDir);
+		intent.putExtra(NowPlaying.KICKOFF_SONG, true);
+		
+		if (hasResume)
+		{
+			if (position == 0)
+			{
+				intent.putExtra(SONG_ABS_FILE_NAME_LIST_POSITION, resumeFilePos);
+				intent.putExtra(MusicPlaybackService.TRACK_POSITION, resumeProgress);
+			} 
+			else 
+			{
+				// a 'resume' option has been added to the beginning of the list
+				// so adjust the selection to compensate
+				intent.putExtra(SONG_ABS_FILE_NAME_LIST_POSITION, position - 1);
+			}
+		} 
+		else 
+		{
+			intent.putExtra(SONG_ABS_FILE_NAME_LIST_POSITION, position);
+		}
+		
+		startActivity(intent);
 	}
 
 	private void showSongSettingsDialog(){
@@ -321,4 +336,20 @@ public class SongList extends AbstractMusicList {
         }
 	}
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) 
+    {
+        int id = item.getItemId();
+	
+        if (id == R.id.action_now_playing) 
+	{
+            if (!MusicPlaybackService.isRunning()) 
+	    {
+                startPlaying(0);
+		return true;
+            }
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }
