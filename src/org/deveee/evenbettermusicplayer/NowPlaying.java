@@ -1,5 +1,5 @@
 /**
-   The Pretty Good Music Player
+   Even Better Music Player
    Copyright (C) 2014  Tyler Smith
    Copyright (C) 2019  Dawid Gan
  
@@ -17,7 +17,7 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.smithdtyler.prettygoodmusicplayer;
+package org.deveee.evenbettermusicplayer;
 
 import java.util.Locale;
 
@@ -53,7 +53,7 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
-import com.smithdtyler.prettygoodmusicplayer.MusicPlaybackService.PlaybackState;
+import org.deveee.evenbettermusicplayer.MusicPlaybackService.PlaybackState;
 
 public class NowPlaying extends Activity {
 
@@ -126,20 +126,20 @@ public class NowPlaying extends Activity {
         if(theme.equalsIgnoreCase(getString(R.string.dark)) || theme.equalsIgnoreCase("dark")){
         	Log.i(TAG, "setting theme to " + theme);
         	if(size.equalsIgnoreCase(getString(R.string.small)) || size.equalsIgnoreCase("small")){
-        		setTheme(R.style.PGMPDarkSmall);
+        		setTheme(R.style.EBMPDarkSmall);
         	} else if (size.equalsIgnoreCase(getString(R.string.medium)) || size.equalsIgnoreCase("medium")){
-        		setTheme(R.style.PGMPDarkMedium);
+        		setTheme(R.style.EBMPDarkMedium);
         	} else {
-        		setTheme(R.style.PGMPDarkLarge);
+        		setTheme(R.style.EBMPDarkLarge);
         	}
         } else if (theme.equalsIgnoreCase(getString(R.string.light)) || theme.equalsIgnoreCase("light")){
         	Log.i(TAG, "setting theme to " + theme);
         	if(size.equalsIgnoreCase(getString(R.string.small)) || size.equalsIgnoreCase("small")){
-        		setTheme(R.style.PGMPLightSmall);
+        		setTheme(R.style.EBMPLightSmall);
         	} else if (size.equalsIgnoreCase(getString(R.string.medium)) || size.equalsIgnoreCase("medium")){
-        		setTheme(R.style.PGMPLightMedium);
+        		setTheme(R.style.EBMPLightMedium);
         	} else {
-        		setTheme(R.style.PGMPLightLarge);
+        		setTheme(R.style.EBMPLightLarge);
         	}
         }
 

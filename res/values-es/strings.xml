@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Pretty Good Music Player</string>
+    <string name="app_name">Even Better Music Player</string>
     <string name="action_settings">Ajustes</string>
     <string name="title_activity_album_list">Albums</string>
     <string name="title_activity_song_list">Canciones</string>
     <string name="title_activity_now_playing">Sonando</string>
     <string name="title_activity_settings">Ajustes</string>
-    <string name="notification_title">Pretty Good Music Player</string>
+    <string name="notification_title">Even Better Music Player</string>
     <string name="notification_message">Tocando</string>
 	<string name="ticker_text">Servicio de Música</string>
 	<string name="next">Siguiente</string>

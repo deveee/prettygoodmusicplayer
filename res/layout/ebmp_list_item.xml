@@ -8,5 +8,5 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     style="?attr/multiListItem"
-    android:id="@+id/PGMPListItemText"/>
+    android:id="@+id/EBMPListItemText"/>
 </LinearLayout>

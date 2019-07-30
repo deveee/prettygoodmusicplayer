@@ -1,5 +1,5 @@
 /**
-   The Pretty Good Music Player
+   Even Better Music Player
    Copyright (C) 2014  Tyler Smith
    Copyright (C) 2019  Dawid Gan
  
@@ -17,7 +17,7 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.smithdtyler.prettygoodmusicplayer;
+package org.deveee.evenbettermusicplayer;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -117,9 +117,9 @@ public class MusicPlaybackService extends Service {
 	private static int uniqueid = new String("Music Playback Service")
 	.hashCode();
 	
-	private String channelid = "PrettyGoodMusicPlayer";
+	private String channelid = "EvenBetterMusicPlayer";
 
-	private OnAudioFocusChangeListener audioFocusListener = new PrettyGoodAudioFocusChangeListener();
+	private OnAudioFocusChangeListener audioFocusListener = new EvenBetterAudioFocusChangeListener();
 
 	private static IntentFilter filter = new IntentFilter();
 	static {
@@ -176,7 +176,7 @@ public class MusicPlaybackService extends Service {
 
 		powerManager =(PowerManager) getSystemService(POWER_SERVICE);
 		wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
-				"PGMPWakeLock");
+				"EBMPWakeLock");
 
 		random = new Random();
 
@@ -193,7 +193,7 @@ public class MusicPlaybackService extends Service {
 		});
 
 		// https://developer.android.com/training/managing-audio/audio-focus.html
-		audioFocusListener = new PrettyGoodAudioFocusChangeListener();
+		audioFocusListener = new EvenBetterAudioFocusChangeListener();
 
 		// Get permission to play audio
 		am = (AudioManager) getBaseContext().getSystemService(
@@ -223,7 +223,7 @@ public class MusicPlaybackService extends Service {
 	    NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 	
 	    if (android.os.Build.VERSION.SDK_INT >= 26) {
-	        CharSequence name = "PrettyGoodMusicPlayer";
+	        CharSequence name = "EvenBetterMusicPlayer";
 	        int importance = NotificationManager.IMPORTANCE_LOW;
 	        NotificationChannel mChannel = new NotificationChannel(channelid, name, importance);
 	        mNotificationManager.createNotificationChannel(mChannel);
@@ -239,7 +239,7 @@ public class MusicPlaybackService extends Service {
 
 		Notification notification = builder
 				.setContentText(contentText)
-				.setSmallIcon(R.drawable.ic_pgmp_launcher)
+				.setSmallIcon(R.drawable.ic_ebmp_launcher)
 				.setWhen(System.currentTimeMillis())
 				.setContentIntent(pendingIntent)
 				.setContentTitle(
@@ -418,7 +418,7 @@ public class MusicPlaybackService extends Service {
 		if(currentTime - 10000 > lastResumeUpdateTime){
 			if(mp != null && songFile != null && mp.isPlaying()){
 				int pos = mp.getCurrentPosition();
-				SharedPreferences prefs = getSharedPreferences("PrettyGoodMusicPlayer", MODE_PRIVATE);
+				SharedPreferences prefs = getSharedPreferences("EvenBetterMusicPlayer", MODE_PRIVATE);
 				Log.i(TAG,
 						"Preferences update success: "
 								+ prefs.edit()
@@ -766,11 +766,11 @@ public class MusicPlaybackService extends Service {
 
 		Builder builder = new NotificationCompat.Builder(
 				this.getApplicationContext(), channelid);
-		int icon = R.drawable.ic_pgmp_launcher;
+		int icon = R.drawable.ic_ebmp_launcher;
 		String contentText = getResources().getString(R.string.ticker_text);
 		if (songFile != null) {
 			SharedPreferences prefs = getSharedPreferences(
-					"PrettyGoodMusicPlayer", MODE_PRIVATE);
+					"EvenBetterMusicPlayer", MODE_PRIVATE);
 			prefs.edit();
 			File bestGuessMusicDir = Utils.getBestGuessMusicDirectory();
 			String musicRoot = prefs.getString("ARTIST_DIRECTORY",
@@ -779,7 +779,7 @@ public class MusicPlaybackService extends Service {
 					+ Utils.getPrettySongName(songFile);
 			if (mp != null) {
 				if (mp.isPlaying()) {
-					icon = R.drawable.ic_pgmp_launcher;
+					icon = R.drawable.ic_ebmp_launcher;
 				}
 			}
 		}
@@ -842,7 +842,7 @@ public class MusicPlaybackService extends Service {
 		mNotificationManager.notify(uniqueid, notification);
 	}
 
-	private class PrettyGoodAudioFocusChangeListener implements
+	private class EvenBetterAudioFocusChangeListener implements
 	AudioManager.OnAudioFocusChangeListener {
 
 		private PlaybackState stateOnFocusLoss = PlaybackState.UNKNOWN;

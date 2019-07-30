@@ -1,5 +1,5 @@
 /**
-   The Pretty Good Music Player
+   Even Better Music Player
    Copyright (C) 2014  Tyler Smith
    Copyright (C) 2019  Dawid Gan
  
@@ -17,7 +17,7 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.smithdtyler.prettygoodmusicplayer;
+package org.deveee.evenbettermusicplayer;
 
 import android.app.ActionBar;
 import android.content.Intent;
@@ -126,20 +126,20 @@ public class AlbumList extends AbstractMusicList {
         if(theme.equalsIgnoreCase(getString(R.string.dark)) || theme.equalsIgnoreCase("dark")){
         	Log.i(TAG, "setting theme to " + theme);
         	if(size.equalsIgnoreCase(getString(R.string.small)) || size.equalsIgnoreCase("small")){
-        		setTheme(R.style.PGMPDarkSmall);
+        		setTheme(R.style.EBMPDarkSmall);
         	} else if (size.equalsIgnoreCase(getString(R.string.medium)) || size.equalsIgnoreCase("medium")){
-        		setTheme(R.style.PGMPDarkMedium);
+        		setTheme(R.style.EBMPDarkMedium);
         	} else {
-        		setTheme(R.style.PGMPDarkLarge);
+        		setTheme(R.style.EBMPDarkLarge);
         	}
         } else if (theme.equalsIgnoreCase(getString(R.string.light)) || theme.equalsIgnoreCase("light")){
         	Log.i(TAG, "setting theme to " + theme);
         	if(size.equalsIgnoreCase(getString(R.string.small)) || size.equalsIgnoreCase("small")){
-        		setTheme(R.style.PGMPLightSmall);
+        		setTheme(R.style.EBMPLightSmall);
         	} else if (size.equalsIgnoreCase(getString(R.string.medium)) || size.equalsIgnoreCase("medium")){
-        		setTheme(R.style.PGMPLightMedium);
+        		setTheme(R.style.EBMPLightMedium);
         	} else {
-        		setTheme(R.style.PGMPLightLarge);
+        		setTheme(R.style.EBMPLightLarge);
         	}
         }
 		setContentView(R.layout.activity_album_list);
@@ -150,7 +150,7 @@ public class AlbumList extends AbstractMusicList {
 	    final String artistPath = intent.getStringExtra(ArtistList.ARTIST_ABS_PATH_NAME);
 	    populateAlbums(artist, artistPath);
         
-        listAdapter = new SimpleAdapter(this, albums, R.layout.pgmp_list_item, new String[] {"album"}, new int[] {R.id.PGMPListItemText});
+        listAdapter = new SimpleAdapter(this, albums, R.layout.ebmp_list_item, new String[] {"album"}, new int[] {R.id.EBMPListItemText});
 	    ListView lv = (ListView) findViewById(R.id.albumListView);
         lv.setAdapter(listAdapter);
         
@@ -159,7 +159,7 @@ public class AlbumList extends AbstractMusicList {
 
              public void onItemClick(AdapterView<?> parentAdapter, View view, int position,
                                      long id) {
-            	 TextView clickedView = (TextView) view.findViewById(R.id.PGMPListItemText);;
+            	 TextView clickedView = (TextView) view.findViewById(R.id.EBMPListItemText);;
             	 Intent intent = new Intent(AlbumList.this, SongList.class);
             	 intent.putExtra(ALBUM_NAME, clickedView.getText());
             	 intent.putExtra(ArtistList.ARTIST_NAME, artist);

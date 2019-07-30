@@ -19,7 +19,7 @@
     </style>
     
     <!-- Application theme. -->
-    <style name="PGMPDarkSmall" parent="@style/AppTheme">
+    <style name="EBMPDarkSmall" parent="@style/AppTheme">
         <item name="android:divider">@color/red</item>
         <item name="multiListItem">@style/SmallDarkListItemStyle</item>
         <item name="backgroundColor">@style/DarkLayout</item>
@@ -29,7 +29,7 @@
         <item name="nowPlayingSongInfoTextSize">@style/DarkSmallSongInfoTextStyle</item>
     </style>
     
-    <style name="PGMPDarkMedium" parent="@style/AppTheme">
+    <style name="EBMPDarkMedium" parent="@style/AppTheme">
         <item name="android:divider">@color/red</item>
         <item name="multiListItem">@style/MediumDarkListItemStyle</item>
         <item name="backgroundColor">@style/DarkLayout</item>
@@ -39,7 +39,7 @@
         <item name="nowPlayingSongInfoTextSize">@style/DarkMediumSongInfoTextStyle</item>
     </style>
     
-    <style name="PGMPDarkLarge" parent="@style/AppTheme">
+    <style name="EBMPDarkLarge" parent="@style/AppTheme">
         <item name="android:divider">@color/red</item>
         <item name="multiListItem">@style/LargeDarkListItemStyle</item>
         <item name="backgroundColor">@style/DarkLayout</item>
@@ -49,7 +49,7 @@
         <item name="nowPlayingSongInfoTextSize">@style/DarkLargeSongInfoTextStyle</item>
     </style>
     
-    <style name="PGMPLightSmall" parent="@style/AppTheme">
+    <style name="EBMPLightSmall" parent="@style/AppTheme">
         <item name="multiListItem">@style/SmallLightListItemStyle</item>
         <item name="backgroundColor">@style/LightLayout</item>
         <item name="dividerColor">@style/LightDividerStyle</item>   
@@ -58,7 +58,7 @@
         <item name="nowPlayingSongInfoTextSize">@style/LightSmallSongInfoTextStyle</item>
     </style>
     
-    <style name="PGMPLightMedium" parent="@style/AppTheme">
+    <style name="EBMPLightMedium" parent="@style/AppTheme">
         <item name="multiListItem">@style/MediumLightListItemStyle</item>
         <item name="backgroundColor">@style/LightLayout</item>
         <item name="dividerColor">@style/LightDividerStyle</item>   
@@ -67,7 +67,7 @@
         <item name="nowPlayingSongInfoTextSize">@style/LightMediumSongInfoTextStyle</item>
    </style>
     
-    <style name="PGMPLightLarge" parent="@style/AppTheme">
+    <style name="EBMPLightLarge" parent="@style/AppTheme">
         <item name="multiListItem">@style/LargeLightListItemStyle</item>
         <item name="backgroundColor">@style/LightLayout</item>
         <item name="dividerColor">@style/LightDividerStyle</item>   

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Pretty Good Music Player</string>
+    <string name="app_name">Even Better Music Player</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_album_list">Albums</string>
     <string name="title_activity_song_list">Songs</string>
     <string name="title_activity_now_playing">Now Playing</string>
     <string name="title_activity_settings">Settings</string>
-    <string name="notification_title">Pretty Good Music Player</string>
+    <string name="notification_title">Even Better Music Player</string>
     <string name="notification_message">Music Playing</string>
 	<string name="ticker_text">Music Playback Service</string>
 	<string name="next">Next</string>
@@ -61,6 +61,6 @@
     <!-- Misc -->
     <!-- **** -->
 
-    <string name="not_granted">Required permission wasn\'t granted, PrettyGoodMusicPlayer can\'t run without it</string>
+    <string name="not_granted">Required permission wasn\'t granted, EvenBetterMusicPlayer can\'t run without it</string>
         
 </resources>

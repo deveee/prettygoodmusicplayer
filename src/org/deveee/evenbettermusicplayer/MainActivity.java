@@ -1,5 +1,5 @@
 /**
-   The Pretty Good Music Player
+   Even Better Music Player
    Copyright (C) 2014  Tyler Smith
    Copyright (C) 2019  Dawid Gan
  
@@ -17,7 +17,7 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
  
-package com.smithdtyler.prettygoodmusicplayer;
+package org.deveee.evenbettermusicplayer;
 
 import android.Manifest;
 import android.app.Activity;

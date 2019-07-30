@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Pretty Good Music Player</string>
+    <string name="app_name">Even Better Music Player</string>
     <string name="action_settings">Beállítások</string>
     <string name="title_activity_album_list">Albumok</string>
     <string name="title_activity_song_list">Dalok</string>
     <string name="title_activity_now_playing">Most játszott</string>
     <string name="title_activity_settings">Beállítások</string>
-    <string name="notification_title">Pretty Good Music Player</string>
+    <string name="notification_title">Even Better Music Player</string>
     <string name="notification_message">Zenejátszás</string>
 	<string name="ticker_text">Zenelejátszási szolgáltatás</string>
 	<string name="next">Következő</string>

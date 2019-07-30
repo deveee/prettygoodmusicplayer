@@ -1,5 +1,5 @@
 /**
-   The Pretty Good Music Player
+   Even Better Music Player
    Copyright (C) 2014  Tyler Smith
    Copyright (C) 2019  Dawid Gan
  
@@ -17,7 +17,7 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.smithdtyler.prettygoodmusicplayer;
+package org.deveee.evenbettermusicplayer;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -110,7 +110,7 @@ import java.util.Map;
     @Override
 	protected void onResume() {
 		super.onResume();
-        SharedPreferences prefs = getSharedPreferences("PrettyGoodMusicPlayer", MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences("EvenBetterMusicPlayer", MODE_PRIVATE);
         prefs.edit();
         File bestGuessMusicDir = Utils.getBestGuessMusicDirectory();
         String prefDir = prefs.getString("ARTIST_DIRECTORY", bestGuessMusicDir.getAbsolutePath());
@@ -119,7 +119,7 @@ import java.util.Map;
         	baseDir = prefDir;
         	populateArtists(baseDir);
             
-            simpleAdpt = new SimpleAdapter(this, artists,  R.layout.pgmp_list_item, new String[] {"artist"}, new int[] {R.id.PGMPListItemText});
+            simpleAdpt = new SimpleAdapter(this, artists,  R.layout.ebmp_list_item, new String[] {"artist"}, new int[] {R.id.EBMPListItemText});
             lv.setAdapter(simpleAdpt);
         }
         
@@ -154,7 +154,7 @@ import java.util.Map;
 	protected void onPause() {
 		super.onPause();
 		// save index and top position
-        SharedPreferences prefs = getSharedPreferences("PrettyGoodMusicPlayer", MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences("EvenBetterMusicPlayer", MODE_PRIVATE);
 		ListView lv = (ListView) findViewById(R.id.artistListView);
 		int index = lv.getFirstVisiblePosition();
 		View v = lv.getChildAt(0);
@@ -166,14 +166,14 @@ import java.util.Map;
 	@Override
 	protected void onStart() {
 		super.onStart();
-        SharedPreferences prefs = getSharedPreferences("PrettyGoodMusicPlayer", MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences("EvenBetterMusicPlayer", MODE_PRIVATE);
         Log.i(TAG, "Preferences " + prefs + " " + ((Object)prefs));
         baseDir = prefs.getString("ARTIST_DIRECTORY", new File(Environment.getExternalStorageDirectory(), "Music").getAbsolutePath());
         Log.d(TAG, "Got configured base directory of " + baseDir);
 
         populateArtists(baseDir);
         
-        simpleAdpt = new SimpleAdapter(this, artists, R.layout.pgmp_list_item, new String[] {"artist"}, new int[] {R.id.PGMPListItemText});
+        simpleAdpt = new SimpleAdapter(this, artists, R.layout.ebmp_list_item, new String[] {"artist"}, new int[] {R.id.EBMPListItemText});
         ListView lv = (ListView) findViewById(R.id.artistListView);
         lv.setAdapter(simpleAdpt);
     }
@@ -182,7 +182,7 @@ import java.util.Map;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        PreferenceManager.setDefaultValues(this, R.xml.pretty_good_preferences, false);
+        PreferenceManager.setDefaultValues(this, R.xml.even_better_preferences, false);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         String theme = sharedPref.getString("pref_theme", getString(R.string.light));
         String size = sharedPref.getString("pref_text_size", getString(R.string.medium));
@@ -194,20 +194,20 @@ import java.util.Map;
         if(theme.equalsIgnoreCase(getString(R.string.dark)) || theme.equalsIgnoreCase("dark")){
         	Log.i(TAG, "setting theme to " + theme);
         	if(size.equalsIgnoreCase(getString(R.string.small)) || size.equalsIgnoreCase("small")){
-        		setTheme(R.style.PGMPDarkSmall);
+        		setTheme(R.style.EBMPDarkSmall);
         	} else if (size.equalsIgnoreCase(getString(R.string.medium)) || size.equalsIgnoreCase("medium")){
-        		setTheme(R.style.PGMPDarkMedium);
+        		setTheme(R.style.EBMPDarkMedium);
         	} else {
-        		setTheme(R.style.PGMPDarkLarge);
+        		setTheme(R.style.EBMPDarkLarge);
         	}
         } else if (theme.equalsIgnoreCase(getString(R.string.light)) || theme.equalsIgnoreCase("light")){
         	Log.i(TAG, "setting theme to " + theme);
         	if(size.equalsIgnoreCase(getString(R.string.small)) || size.equalsIgnoreCase("small")){
-        		setTheme(R.style.PGMPLightSmall);
+        		setTheme(R.style.EBMPLightSmall);
         	} else if (size.equalsIgnoreCase(getString(R.string.medium)) || size.equalsIgnoreCase("medium")){
-        		setTheme(R.style.PGMPLightMedium);
+        		setTheme(R.style.EBMPLightMedium);
         	} else {
-        		setTheme(R.style.PGMPLightLarge);
+        		setTheme(R.style.EBMPLightLarge);
         	}
         }
         setContentView(R.layout.activity_artist_list);
@@ -220,7 +220,7 @@ import java.util.Map;
              public void onItemClick(AdapterView<?> parentAdapter, View view, int position,
                                      long id) {
             	 // TODO just use the position instead
-            	 TextView clickedView = (TextView) view.findViewById(R.id.PGMPListItemText);
+            	 TextView clickedView = (TextView) view.findViewById(R.id.EBMPListItemText);
             	 // Apparently sometimes clickedview returns the listview, other times it returns the text view
             	 if(clickedView == null){
             		 if(view instanceof TextView){

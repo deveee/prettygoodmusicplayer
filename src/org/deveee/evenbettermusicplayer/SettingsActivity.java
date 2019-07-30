@@ -1,5 +1,5 @@
 /**
-   The Pretty Good Music Player
+   Even Better Music Player
    Copyright (C) 2014  Tyler Smith
    Copyright (C) 2019  Dawid Gan
  
@@ -17,16 +17,23 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.smithdtyler.prettygoodmusicplayer;
+package org.deveee.evenbettermusicplayer;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.IOException;
 import java.util.List;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -73,7 +80,7 @@ public class SettingsActivity extends PreferenceActivity {
 
 		// Add 'general' preferences.
 		// TODO this is deprecated, update to use fragments I guess?
-		addPreferencesFromResource(R.xml.pretty_good_preferences);
+		addPreferencesFromResource(R.xml.even_better_preferences);
 	}
 	
 	
@@ -134,7 +141,7 @@ public class SettingsActivity extends PreferenceActivity {
 		public void onClick(DialogInterface dialog, int which) {
 			if (which == 0) {
 				dialog.dismiss();
-		        SharedPreferences prefs = activity.getSharedPreferences("PrettyGoodMusicPlayer", MODE_PRIVATE);
+		        SharedPreferences prefs = activity.getSharedPreferences("EvenBetterMusicPlayer", MODE_PRIVATE);
 
 				Log.i(TAG,
 						"Preferences update success: "
@@ -176,8 +183,8 @@ public class SettingsActivity extends PreferenceActivity {
 				items[i + 2] = new Item(files.get(i).getName(), R.drawable.ic_action_collection);
 			}
 			
-			items[0] = new Item(path.getAbsolutePath(), R.drawable.ic_pgmp_launcher);
-			//items[0] = new Item(activity.getResources().getString(R.string.directorydialoghere), R.drawable.ic_pgmp_launcher);
+			items[0] = new Item(path.getAbsolutePath(), R.drawable.ic_ebmp_launcher);
+			//items[0] = new Item(activity.getResources().getString(R.string.directorydialoghere), R.drawable.ic_ebmp_launcher);
 			items[1] = new Item(activity.getResources().getString(R.string.directorydialogup), android.R.drawable.ic_menu_upload);
 			
 			ListAdapter adapter = new ArrayAdapter<Item>(
