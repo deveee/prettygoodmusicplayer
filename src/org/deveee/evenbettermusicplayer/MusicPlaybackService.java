@@ -766,7 +766,6 @@ public class MusicPlaybackService extends Service {
 
 		Builder builder = new NotificationCompat.Builder(
 				this.getApplicationContext(), channelid);
-		int icon = R.drawable.ic_ebmp_launcher;
 		String contentText = getResources().getString(R.string.ticker_text);
 		if (songFile != null) {
 			SharedPreferences prefs = getSharedPreferences(
@@ -777,11 +776,6 @@ public class MusicPlaybackService extends Service {
 					bestGuessMusicDir.getAbsolutePath());
 			contentText = Utils.getArtistName(songFile, musicRoot) + ": "
 					+ Utils.getPrettySongName(songFile);
-			if (mp != null) {
-				if (mp.isPlaying()) {
-					icon = R.drawable.ic_ebmp_launcher;
-				}
-			}
 		}
 
 		Intent previousIntent = new Intent("Previous", null, this, MusicPlaybackService.class);
@@ -812,8 +806,8 @@ public class MusicPlaybackService extends Service {
 			notification = builder
 					.setStyle(new android.support.v4.media.app.NotificationCompat.MediaStyle()) 
 					.setContentText(contentText)
-					.setSmallIcon(icon)
-					.setLargeIcon(BitmapFactory.decodeResource(getResources(), icon))
+					.setSmallIcon(R.drawable.ic_ebmp_launcher)
+					.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icon_large))
 					.setWhen(System.currentTimeMillis())
 					.setContentIntent(pendingIntent)
 					.setContentTitle(
@@ -826,8 +820,8 @@ public class MusicPlaybackService extends Service {
 			notification = builder
 					.setStyle(new android.support.v4.media.app.NotificationCompat.MediaStyle()) 
 					.setContentText(contentText)
-					.setSmallIcon(icon)
-					.setLargeIcon(BitmapFactory.decodeResource(getResources(), icon))
+					.setSmallIcon(R.drawable.ic_ebmp_launcher)
+					.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icon_large))
 					.setWhen(System.currentTimeMillis())
 					.setContentIntent(pendingIntent)
 					.setContentTitle(
