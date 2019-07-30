@@ -44,7 +44,7 @@ public abstract class AbstractMusicList extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("com.smithdtyler.ACTION_EXIT");
+        intentFilter.addAction("org.deveee.ACTION_EXIT");
         exitReceiver = new BroadcastReceiver(){
 
             @Override

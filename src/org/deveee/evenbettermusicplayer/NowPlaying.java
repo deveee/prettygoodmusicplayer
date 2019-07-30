@@ -277,7 +277,7 @@ public class NowPlaying extends Activity {
 		});
 		
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("com.smithdtyler.ACTION_EXIT");
+        intentFilter.addAction("org.deveee.ACTION_EXIT");
         exitReceiver = new BroadcastReceiver(){
 
 			@Override
@@ -547,7 +547,7 @@ public class NowPlaying extends Activity {
 		}
 		if (id == R.id.action_exit) {
 			Intent broadcastIntent = new Intent();
-			broadcastIntent.setAction("com.smithdtyler.ACTION_EXIT");
+			broadcastIntent.setAction("org.deveee.ACTION_EXIT");
 			sendBroadcast(broadcastIntent);
 			Intent startMain = new Intent(Intent.ACTION_MAIN);
 		    startMain.addCategory(Intent.CATEGORY_HOME);
