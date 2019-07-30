@@ -10,3 +10,8 @@ build/*
 .gradle/*
 *.iml
 gradle*
+
+*.diff
+*.patch
+*.keystore
+make.sh
