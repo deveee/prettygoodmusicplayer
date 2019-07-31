@@ -50,6 +50,7 @@ public class AlbumList extends AbstractMusicList {
 
 	private String currentTheme;
 	private String currentSize;
+	private boolean fromNotification = false;
 
 
 	private void populateAlbums(String artistName, String artistPath){
@@ -93,15 +94,19 @@ public class AlbumList extends AbstractMusicList {
 		
 		// If albums size is 1, then there were no directories in this folder.
 		// skip straight to listing songs.
-		if(albums.size() == 1){
-       	 Intent intent = new Intent(AlbumList.this, SongList.class);
-		 intent.putExtra(ALBUM_NAME, "All");
-       	 intent.putExtra(ArtistList.ARTIST_NAME, artist.getName());
-       	 intent.putExtra(ArtistList.ARTIST_ABS_PATH_NAME, artistPath);
-       	 startActivity(intent);
-       	 // In this case we don't want to add the AlbumList to the back stack
-       	 // so call 'finish' immediately.
-       	 finish();
+		if(albums.size() == 1)
+		{
+			if (!fromNotification)
+			{
+				Intent intent = new Intent(AlbumList.this, SongList.class);
+				intent.putExtra(ALBUM_NAME, "All");
+				intent.putExtra(ArtistList.ARTIST_NAME, artist.getName());
+				intent.putExtra(ArtistList.ARTIST_ABS_PATH_NAME, artistPath);
+				startActivity(intent);
+			}
+			// In this case we don't want to add the AlbumList to the back stack
+			// so call 'finish' immediately.
+			finish();
 		}
 	}
 	
@@ -111,6 +116,7 @@ public class AlbumList extends AbstractMusicList {
 		
 	    Intent intent = getIntent();
 	    final String artist = intent.getStringExtra(ArtistList.ARTIST_NAME);
+	    fromNotification = intent.getBooleanExtra("From_Notification", false);
 		
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);

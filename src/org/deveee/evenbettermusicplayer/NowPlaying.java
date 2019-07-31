@@ -99,6 +99,7 @@ public class NowPlaying extends Activity {
 				intent = new Intent(this, AlbumList.class);
 				intent.putExtra(ArtistList.ARTIST_NAME, artistName);
 				intent.putExtra(ArtistList.ARTIST_ABS_PATH_NAME, artistAbsPath);
+				intent.putExtra("From_Notification", true);
 				tsb.addNextIntent(intent);
 
 				String albumName =  originIntent.getStringExtra(AlbumList.ALBUM_NAME);
@@ -113,7 +114,6 @@ public class NowPlaying extends Activity {
 				tsb.addNextIntent(intent);
 				tsb.startActivities();
 			}
-
 		}
 
 		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
