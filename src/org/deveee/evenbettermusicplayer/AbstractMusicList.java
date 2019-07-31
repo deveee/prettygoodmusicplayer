@@ -79,14 +79,22 @@ public abstract class AbstractMusicList extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_now_playing) {
-            if (MusicPlaybackService.isRunning()) {
+        if (id == R.id.action_now_playing) 
+        {
+            if (MusicPlaybackService.isRunning()) 
+            {
                 Intent intent = new Intent(AbstractMusicList.this, NowPlaying.class);
+                intent.putExtra(ArtistList.ARTIST_NAME, MusicPlaybackService.artist);
+                intent.putExtra(ArtistList.ARTIST_ABS_PATH_NAME, MusicPlaybackService.artistAbsPath);
+                intent.putExtra(AlbumList.ALBUM_NAME, MusicPlaybackService.album);
                 intent.putExtra("From_Notification", true);
                 startActivity(intent);
-            } else {
+            } 
+            else 
+            {
                 Toast.makeText(AbstractMusicList.this, R.string.nothing_playing, Toast.LENGTH_SHORT).show();
             }
+            
             return true;
         }
         if (id == R.id.action_settings) {

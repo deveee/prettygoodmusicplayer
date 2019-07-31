@@ -147,14 +147,15 @@ public class MusicPlaybackService extends Service {
 	private List<Integer> shuffleFrontList = new ArrayList<Integer>();
 	private Random random;
 	private List<Integer> shuffleBackList = new ArrayList<Integer>();
-	private String artist;
-	private String artistAbsPath;
-	private String album;
 	private long lastResumeUpdateTime;
 	private SharedPreferences sharedPref;
 	private HeadphoneBroadcastReceiver headphoneReceiver;
 	private PowerManager powerManager;
 	WakeLock wakeLock;
+	
+	public static String artist;
+	public static String artistAbsPath;
+	public static String album;
 
 	// Handler that receives messages from the thread
 	private final class ServiceHandler extends Handler {
