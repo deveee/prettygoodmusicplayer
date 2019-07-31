@@ -56,8 +56,6 @@ import android.widget.TextView;
 import org.deveee.evenbettermusicplayer.MusicPlaybackService.PlaybackState;
 
 public class NowPlaying extends Activity {
-
-	private static final String TAG = "Now Playing";
 	static final String KICKOFF_SONG = "KICKOFF_SONG";
 
 	// State information
@@ -90,7 +88,7 @@ public class NowPlaying extends Activity {
 			String artistName = originIntent.getStringExtra(ArtistList.ARTIST_NAME);
 			String artistAbsPath = originIntent.getStringExtra(ArtistList.ARTIST_ABS_PATH_NAME);
 			if(artistName != null && artistAbsPath != null){
-				Log.i(TAG, "Now Playing was launched from a notification, setting up its back stack");
+				Log.i("EvenBetterMusicPlayer", "Now Playing was launched from a notification, setting up its back stack");
 				// Reference: https://developer.android.com/reference/android/app/TaskStackBuilder.html
 				TaskStackBuilder tsb = TaskStackBuilder.create(this);
 				Intent intent = new Intent(this, ArtistList.class);
@@ -119,12 +117,12 @@ public class NowPlaying extends Activity {
 		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 		String theme = sharedPref.getString("pref_theme", getString(R.string.light));
 		String size = sharedPref.getString("pref_text_size", getString(R.string.medium));
-		Log.i(TAG, "got configured theme " + theme);
-		Log.i(TAG, "got configured size " + size);
+		Log.i("EvenBetterMusicPlayer", "got configured theme " + theme);
+		Log.i("EvenBetterMusicPlayer", "got configured size " + size);
 		
         // These settings were fixed in english for a while, so check for old style settings as well as language specific ones.
         if(theme.equalsIgnoreCase(getString(R.string.dark)) || theme.equalsIgnoreCase("dark")){
-        	Log.i(TAG, "setting theme to " + theme);
+        	Log.i("EvenBetterMusicPlayer", "setting theme to " + theme);
         	if(size.equalsIgnoreCase(getString(R.string.small)) || size.equalsIgnoreCase("small")){
         		setTheme(R.style.EBMPDarkSmall);
         	} else if (size.equalsIgnoreCase(getString(R.string.medium)) || size.equalsIgnoreCase("medium")){
@@ -133,7 +131,7 @@ public class NowPlaying extends Activity {
         		setTheme(R.style.EBMPDarkLarge);
         	}
         } else if (theme.equalsIgnoreCase(getString(R.string.light)) || theme.equalsIgnoreCase("light")){
-        	Log.i(TAG, "setting theme to " + theme);
+        	Log.i("EvenBetterMusicPlayer", "setting theme to " + theme);
         	if(size.equalsIgnoreCase(getString(R.string.small)) || size.equalsIgnoreCase("small")){
         		setTheme(R.style.EBMPLightSmall);
         	} else if (size.equalsIgnoreCase(getString(R.string.medium)) || size.equalsIgnoreCase("medium")){
@@ -173,7 +171,7 @@ public class NowPlaying extends Activity {
 			desiredAbsSongFileNamesPosition = intent.getIntExtra(SongList.SONG_ABS_FILE_NAME_LIST_POSITION, 0);
 			desiredSongProgress = intent.getIntExtra(MusicPlaybackService.TRACK_POSITION, 0);
 
-			Log.d(TAG, "Got song names " + desiredSongAbsFileNames + " position "
+			Log.d("EvenBetterMusicPlayer", "Got song names " + desiredSongAbsFileNames + " position "
 					+ desiredAbsSongFileNamesPosition);
 
 			TextView et = (TextView) findViewById(R.id.artistName);
@@ -249,7 +247,7 @@ public class NowPlaying extends Activity {
 			public void onProgressChanged(SeekBar seekBar, int progress,
 					boolean fromUser) {
 				if(fromUser){
-					Log.v(TAG, "drag location updated..." + progress);
+					Log.v("EvenBetterMusicPlayer", "drag location updated..." + progress);
 					this.requestedProgress = progress;
 					updateSongProgressLabel(progress);
 				}
@@ -266,7 +264,7 @@ public class NowPlaying extends Activity {
 				Message msg = Message.obtain(null, MusicPlaybackService.MSG_SEEK_TO);
 				msg.getData().putInt(MusicPlaybackService.TRACK_POSITION, requestedProgress);
 				try {
-					Log.i(TAG, "Sending a request to seek!");
+					Log.i("EvenBetterMusicPlayer", "Sending a request to seek!");
 					mService.send(msg);
 				} catch (RemoteException e) {
 					e.printStackTrace();
@@ -282,7 +280,7 @@ public class NowPlaying extends Activity {
 
 			@Override
 			public void onReceive(Context context, Intent intent) {
-				Log.i(TAG, "Received exit request, shutting down...");
+				Log.i("EvenBetterMusicPlayer", "Received exit request, shutting down...");
 				Intent msgIntent = new Intent(getBaseContext(), MusicPlaybackService.class);
 				msgIntent.putExtra("Message", MusicPlaybackService.MSG_STOP_SERVICE);
 				startService(msgIntent);
@@ -310,10 +308,10 @@ public class NowPlaying extends Activity {
 
 	// Playback control methods
 	private void playPause(){
-		Log.d(TAG, "Play/Pause clicked...");
+		Log.d("EvenBetterMusicPlayer", "Play/Pause clicked...");
 		Message msg = Message.obtain(null, MusicPlaybackService.MSG_PLAYPAUSE);
 		try {
-			Log.i(TAG, "Sending a request to start playing!");
+			Log.i("EvenBetterMusicPlayer", "Sending a request to start playing!");
 			mService.send(msg);
 		} catch (RemoteException e) {
 			e.printStackTrace();
@@ -321,10 +319,10 @@ public class NowPlaying extends Activity {
 	}
 
 	private void next(){
-		Log.d(TAG, "next...");
+		Log.d("EvenBetterMusicPlayer", "next...");
 		Message msg = Message.obtain(null, MusicPlaybackService.MSG_NEXT);
 		try {
-			Log.i(TAG, "SEnding a request to go to next!");
+			Log.i("EvenBetterMusicPlayer", "SEnding a request to go to next!");
 			mService.send(msg);
 		} catch (RemoteException e) {
 			e.printStackTrace();
@@ -332,10 +330,10 @@ public class NowPlaying extends Activity {
 	}
 
 	public void previous(){
-		Log.d(TAG, "Previous clicked...");
+		Log.d("EvenBetterMusicPlayer", "Previous clicked...");
 		Message msg = Message.obtain(null, MusicPlaybackService.MSG_PREVIOUS);
 		try {
-			Log.i(TAG, "Sending a request to go to previous!");
+			Log.i("EvenBetterMusicPlayer", "Sending a request to go to previous!");
 			mService.send(msg);
 		} catch (RemoteException e) {
 			e.printStackTrace();
@@ -343,10 +341,10 @@ public class NowPlaying extends Activity {
 	}
 
 	public void jumpBack(){
-		Log.d(TAG, "JumpBack clicked...");
+		Log.d("EvenBetterMusicPlayer", "JumpBack clicked...");
 		Message msg = Message.obtain(null, MusicPlaybackService.MSG_JUMPBACK);
 		try {
-			Log.i(TAG, "Sending a request to jump back!");
+			Log.i("EvenBetterMusicPlayer", "Sending a request to jump back!");
 			mService.send(msg);
 		} catch (RemoteException e) {
 			e.printStackTrace();
@@ -354,10 +352,10 @@ public class NowPlaying extends Activity {
 	}
 	
 	public void toggleShuffle(){
-		Log.d(TAG, "Shuffle clicked...");
+		Log.d("EvenBetterMusicPlayer", "Shuffle clicked...");
 		Message msg = Message.obtain(null, MusicPlaybackService.MSG_TOGGLE_SHUFFLE);
 		try {
-			Log.i(TAG, "Sending a request to toggle shuffle!");
+			Log.i("EvenBetterMusicPlayer", "Sending a request to toggle shuffle!");
 			mService.send(msg);
 		} catch (RemoteException e) {
 			e.printStackTrace();
@@ -398,7 +396,7 @@ public class NowPlaying extends Activity {
 					msg.getData().putString(AlbumList.ALBUM_NAME, desiredAlbumName);
 					msg.getData().putInt(MusicPlaybackService.TRACK_POSITION, desiredSongProgress);
 					try {
-						Log.i(TAG, "Sending a playlist!");
+						Log.i("EvenBetterMusicPlayer", "Sending a playlist!");
 						mService.send(msg);
 					} catch (RemoteException e) {
 						e.printStackTrace();
@@ -407,7 +405,7 @@ public class NowPlaying extends Activity {
 					// start playing!
 					msg = Message.obtain(null, MusicPlaybackService.MSG_PLAYPAUSE);
 					try {
-						Log.i(TAG, "Sending a play command!");
+						Log.i("EvenBetterMusicPlayer", "Sending a play command!");
 						mService.send(msg);
 					} catch (RemoteException e) {
 						e.printStackTrace();
@@ -493,7 +491,7 @@ public class NowPlaying extends Activity {
 	// Service Management Methods
 	@SuppressLint("InlinedApi") 
 	void doBindService(boolean startService) {
-		Log.i(TAG, "Binding to the service!");
+		Log.i("EvenBetterMusicPlayer", "Binding to the service!");
 		bindService(new Intent(this, MusicPlaybackService.class), mConnection,
 				Context.BIND_IMPORTANT | Context.BIND_AUTO_CREATE);
 		mIsBound = true;
@@ -505,7 +503,7 @@ public class NowPlaying extends Activity {
 	}
 
 	void doUnbindService() {
-		Log.i(TAG, "Unbinding the service!");
+		Log.i("EvenBetterMusicPlayer", "Unbinding the service!");
 		if (mIsBound) {
 			// If we have received the service, and hence registered with it,
 			// then now is the time to unregister.
@@ -617,7 +615,7 @@ public class NowPlaying extends Activity {
 					break;
 				case 9: 
 					try{
-						Log.i(TAG, "custom color: " + customAccentColor);
+						Log.i("EvenBetterMusicPlayer", "custom color: " + customAccentColor);
 						if(!customAccentColor.startsWith("#")){
 							customAccentColor = "#" + customAccentColor;
 						}
@@ -627,7 +625,7 @@ public class NowPlaying extends Activity {
 						int custom = Color.parseColor(customAccentColor.trim());
 						setAccentColors(custom);
 					} catch (Exception e){
-						Log.w(TAG, "Unable to parse custom color", e);
+						Log.w("EvenBetterMusicPlayer", "Unable to parse custom color", e);
 					}
 					break;
 				}
@@ -637,8 +635,8 @@ public class NowPlaying extends Activity {
 		String theme = sharedPref.getString("pref_theme", getString(R.string.light));
 		String size = sharedPref.getString("pref_text_size", getString(R.string.medium));
 		boolean fullScreen = sharedPref.getBoolean("pref_full_screen_now_playing", false);
-		Log.i(TAG, "got configured theme " + theme);
-		Log.i(TAG, "Got configured size " + size);
+		Log.i("EvenBetterMusicPlayer", "got configured theme " + theme);
+		Log.i("EvenBetterMusicPlayer", "Got configured size " + size);
 		if(currentTheme == null){
 			currentTheme = theme;
 		} 

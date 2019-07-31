@@ -36,8 +36,6 @@ import android.widget.Toast;
  * Created by tyler on 6/27/15.
  */
 public abstract class AbstractMusicList extends Activity {
-    private static final String TAG = "AbstractMusicList";
-
     protected BroadcastReceiver exitReceiver;
 
     @Override
@@ -49,7 +47,7 @@ public abstract class AbstractMusicList extends Activity {
 
             @Override
             public void onReceive(Context context, Intent intent) {
-                Log.i(TAG, "Received exit request, shutting down...");
+                Log.i("EvenBetterMusicPlayer", "Received exit request, shutting down...");
                 Intent msgIntent = new Intent(getBaseContext(), MusicPlaybackService.class);
                 msgIntent.putExtra("Message", MusicPlaybackService.MSG_STOP_SERVICE);
                 startService(msgIntent);

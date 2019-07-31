@@ -45,7 +45,6 @@ import java.util.List;
 import java.util.Map;
 
 @SuppressLint("DefaultLocale") public class ArtistList extends AbstractMusicList {
-	private static final String TAG = "Artist List";
 	public static final String ARTIST_NAME = "ARTIST_NAME";
 	public static final String ARTISTS_DIR = "ARTIST_DIRECTORY";
 	public static final String ARTIST_ABS_PATH_NAME = "ARTIST_PATH";
@@ -62,7 +61,7 @@ import java.util.Map;
 		artists = new ArrayList<Map<String,String>>();
 		File f = new File(baseDir);
 		if(!f.exists() || !f.isDirectory()){
-			Log.e(TAG, "Storage directory " + f + " does not exist!");
+			Log.e("EvenBetterMusicPlayer", "Storage directory " + f + " does not exist!");
 			return;
 		}
 		
@@ -93,7 +92,7 @@ import java.util.Map;
 		});
 		
 		for(String artist : artistDirs){
-			Log.v(TAG, "Adding artist " + artist);
+			Log.v("EvenBetterMusicPlayer", "Adding artist " + artist);
 			// listview requires a map
 			Map<String,String> map = new HashMap<String, String>();
 			map.put("artist", artist);			
@@ -126,17 +125,17 @@ import java.util.Map;
         int top = prefs.getInt("ARTIST_LIST_TOP", Integer.MIN_VALUE);
         int index = prefs.getInt("ARTIST_LIST_INDEX", Integer.MIN_VALUE);
         if(top > Integer.MIN_VALUE && index > Integer.MIN_VALUE){
-        	Log.i(TAG, "Setting position from saved preferences");
+        	Log.i("EvenBetterMusicPlayer", "Setting position from saved preferences");
         	lv.setSelectionFromTop(index, top);
         } else {
-        	Log.i(TAG, "No saved position found");
+        	Log.i("EvenBetterMusicPlayer", "No saved position found");
         }
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         String theme = sharedPref.getString("pref_theme", getString(R.string.light));
         String size = sharedPref.getString("pref_text_size", getString(R.string.medium));
-        Log.i(TAG, "got configured theme " + theme);
-        Log.i(TAG, "Got configured size " + size);
+        Log.i("EvenBetterMusicPlayer", "got configured theme " + theme);
+        Log.i("EvenBetterMusicPlayer", "Got configured size " + size);
         if(currentTheme == null){
         	currentTheme = theme;
         } 
@@ -160,16 +159,16 @@ import java.util.Map;
 		View v = lv.getChildAt(0);
 		int top = (v == null) ? 0 : v.getTop();
 		prefs.edit().putInt("ARTIST_LIST_TOP", top).putInt("ARTIST_LIST_INDEX",index).commit();
-		Log.i(TAG, "Saving position top " + top + " index " + index);
+		Log.i("EvenBetterMusicPlayer", "Saving position top " + top + " index " + index);
 	}
 
 	@Override
 	protected void onStart() {
 		super.onStart();
         SharedPreferences prefs = getSharedPreferences("EvenBetterMusicPlayer", MODE_PRIVATE);
-        Log.i(TAG, "Preferences " + prefs + " " + ((Object)prefs));
+        Log.i("EvenBetterMusicPlayer", "Preferences " + prefs + " " + ((Object)prefs));
         baseDir = prefs.getString("ARTIST_DIRECTORY", new File(Environment.getExternalStorageDirectory(), "Music").getAbsolutePath());
-        Log.d(TAG, "Got configured base directory of " + baseDir);
+        Log.d("EvenBetterMusicPlayer", "Got configured base directory of " + baseDir);
 
         populateArtists(baseDir);
         
@@ -186,13 +185,13 @@ import java.util.Map;
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         String theme = sharedPref.getString("pref_theme", getString(R.string.light));
         String size = sharedPref.getString("pref_text_size", getString(R.string.medium));
-        Log.i(TAG, "got configured theme " + theme);
-        Log.i(TAG, "got configured size " + size);
+        Log.i("EvenBetterMusicPlayer", "got configured theme " + theme);
+        Log.i("EvenBetterMusicPlayer", "got configured size " + size);
         currentTheme = theme;
         currentSize = size;
         // These settings were fixed in english for a while, so check for old style settings as well as language specific ones.
         if(theme.equalsIgnoreCase(getString(R.string.dark)) || theme.equalsIgnoreCase("dark")){
-        	Log.i(TAG, "setting theme to " + theme);
+        	Log.i("EvenBetterMusicPlayer", "setting theme to " + theme);
         	if(size.equalsIgnoreCase(getString(R.string.small)) || size.equalsIgnoreCase("small")){
         		setTheme(R.style.EBMPDarkSmall);
         	} else if (size.equalsIgnoreCase(getString(R.string.medium)) || size.equalsIgnoreCase("medium")){
@@ -201,7 +200,7 @@ import java.util.Map;
         		setTheme(R.style.EBMPDarkLarge);
         	}
         } else if (theme.equalsIgnoreCase(getString(R.string.light)) || theme.equalsIgnoreCase("light")){
-        	Log.i(TAG, "setting theme to " + theme);
+        	Log.i("EvenBetterMusicPlayer", "setting theme to " + theme);
         	if(size.equalsIgnoreCase(getString(R.string.small)) || size.equalsIgnoreCase("small")){
         		setTheme(R.style.EBMPLightSmall);
         	} else if (size.equalsIgnoreCase(getString(R.string.medium)) || size.equalsIgnoreCase("medium")){
@@ -226,7 +225,7 @@ import java.util.Map;
             		 if(view instanceof TextView){
             			 clickedView = (TextView)view;
             		 } else{
-            			 Log.w(TAG, "Got null clicked view");
+            			 Log.w("EvenBetterMusicPlayer", "Got null clicked view");
             			 return;
             		 }
             	 }
@@ -249,7 +248,7 @@ import java.util.Map;
     // eat it.
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-    	Log.i(TAG, " handling on key down");
+    	Log.i("EvenBetterMusicPlayer", " handling on key down");
         switch(keyCode)
         {
         case KeyEvent.KEYCODE_BACK:
@@ -258,7 +257,7 @@ import java.util.Map;
 
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					Log.d(TAG, "User actually wants to quit");
+					Log.d("EvenBetterMusicPlayer", "User actually wants to quit");
 					// Kill the service
 					Intent msgIntent = new Intent(getBaseContext(), MusicPlaybackService.class);
 					msgIntent.putExtra("Message", MusicPlaybackService.MSG_STOP_SERVICE);
@@ -271,7 +270,7 @@ import java.util.Map;
 
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					Log.d(TAG, "User doesn't actually want to quit");
+					Log.d("EvenBetterMusicPlayer", "User doesn't actually want to quit");
 				}
             	
             }).show();

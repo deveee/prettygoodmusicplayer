@@ -58,8 +58,6 @@ import android.widget.TextView;
  * API Guide</a> for more information on developing a Settings UI.
  */
 public class SettingsActivity extends PreferenceActivity {
-	private static final String TAG = "SettingsActivity";
-
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
@@ -110,13 +108,13 @@ public class SettingsActivity extends PreferenceActivity {
 	public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
 			Preference preference) {
 		// TODO clean this up a bunch.
-		Log.i(TAG, "User clicked " + preference.getTitle());
+		Log.i("EvenBetterMusicPlayer", "User clicked " + preference.getTitle());
 		if (preference.getKey().equals("choose_music_directory_prompt")) {
 			final File path = Utils.getRootStorageDirectory();
 			DirectoryPickerOnClickListener picker = new DirectoryPickerOnClickListener(
 					this, path);
 			picker.showDirectoryPicker();
-			Log.i(TAG, "User selected " + picker.path);
+			Log.i("EvenBetterMusicPlayer", "User selected " + picker.path);
 			return true;
 		}
 		return super.onPreferenceTreeClick(preferenceScreen, preference);
@@ -143,7 +141,7 @@ public class SettingsActivity extends PreferenceActivity {
 				dialog.dismiss();
 		        SharedPreferences prefs = activity.getSharedPreferences("EvenBetterMusicPlayer", MODE_PRIVATE);
 
-				Log.i(TAG,
+				Log.i("EvenBetterMusicPlayer",
 						"Preferences update success: "
 								+ prefs.edit()
 										.putString("ARTIST_DIRECTORY",

@@ -44,7 +44,6 @@ import java.util.Map;
 public class SongList extends AbstractMusicList {
 	public static final String SONG_ABS_FILE_NAME_LIST = "SONG_LIST";
 	public static final String SONG_ABS_FILE_NAME_LIST_POSITION = "SONG_LIST_POSITION";
-	private static final String TAG = "SongList";
 	private List<Map<String,String>> songs;
 	private SimpleAdapter simpleAdpt;
 	private List<String> songAbsFileNameList;
@@ -74,20 +73,20 @@ public class SongList extends AbstractMusicList {
 		SharedPreferences prefs = getSharedPreferences("EvenBetterMusicPlayer", MODE_PRIVATE);
 		resume = prefs.getString(albumDir.getAbsolutePath(), null);
 		if(resume != null){
-			Log.i(TAG, "Found resumable time! " + resume);
+			Log.i("EvenBetterMusicPlayer", "Found resumable time! " + resume);
 		} else {
-			Log.i(TAG, "Didn't find a resumable time");
+			Log.i("EvenBetterMusicPlayer", "Didn't find a resumable time");
 		}
 
 		List<File> songFiles = new ArrayList<File>();
 		if(albumDir.exists() && albumDir.isDirectory() && (albumDir.listFiles() != null)){
-			Log.d(TAG, "external storage directory = " + albumDir);
+			Log.d("EvenBetterMusicPlayer", "external storage directory = " + albumDir);
 			
 			for(File song : albumDir.listFiles()){
 				if(Utils.isValidSongFile(song)){
 					songFiles.add(song);
 				} else {
-					Log.v(TAG, "Found invalid song file " + song);
+					Log.v("EvenBetterMusicPlayer", "Found invalid song file " + song);
 				}
 			}
 			
@@ -96,7 +95,7 @@ public class SongList extends AbstractMusicList {
 		} else {
 			// If the album didn't exist, just list all of the songs we can find.
 			// Assume we don't need full recursion
-			Log.d(TAG, "Adding all songs...");
+			Log.d("EvenBetterMusicPlayer", "Adding all songs...");
 			File[] albumArray = artistDir.listFiles();
 			List<File> albums = new ArrayList<File>();
 			for(File alb : albumArray){
@@ -134,7 +133,7 @@ public class SongList extends AbstractMusicList {
 		}
 		
 		for(File song : songFiles){
-			Log.v(TAG, "Adding song " + song);
+			Log.v("EvenBetterMusicPlayer", "Adding song " + song);
 			Map<String,String> map = new HashMap<String, String>();
 			map.put("song", Utils.getPrettySongName(song));			
 			songs.add(map);
@@ -170,10 +169,10 @@ public class SongList extends AbstractMusicList {
 						hasResume = true;
 					}
 				} else {
-					Log.w(TAG, "Couldn't find file to resume");
+					Log.w("EvenBetterMusicPlayer", "Couldn't find file to resume");
 				}
 			} catch (Exception e){
-				Log.w(TAG, "Couldn't add resume song name", e);
+				Log.w("EvenBetterMusicPlayer", "Couldn't add resume song name", e);
 				hasResume = false;
 			}
 		}
@@ -202,13 +201,13 @@ public class SongList extends AbstractMusicList {
         String theme = sharedPref.getString("pref_theme", getString(R.string.light));
         String size = sharedPref.getString("pref_text_size", getString(R.string.medium));
         audiobookMode = sharedPref.getBoolean("pref_audiobook_mode", false);
-        Log.i(TAG, "got configured theme " + theme);
-        Log.i(TAG, "got configured size " + size);
+        Log.i("EvenBetterMusicPlayer", "got configured theme " + theme);
+        Log.i("EvenBetterMusicPlayer", "got configured size " + size);
         currentTheme = theme;
         currentSize = size;
         // These settings were fixed in english for a while, so check for old style settings as well as language specific ones.
         if(theme.equalsIgnoreCase(getString(R.string.dark)) || theme.equalsIgnoreCase("dark")){
-        	Log.i(TAG, "setting theme to " + theme);
+        	Log.i("EvenBetterMusicPlayer", "setting theme to " + theme);
         	if(size.equalsIgnoreCase(getString(R.string.small)) || size.equalsIgnoreCase("small")){
         		setTheme(R.style.EBMPDarkSmall);
         	} else if (size.equalsIgnoreCase(getString(R.string.medium)) || size.equalsIgnoreCase("medium")){
@@ -217,7 +216,7 @@ public class SongList extends AbstractMusicList {
         		setTheme(R.style.EBMPDarkLarge);
         	}
         } else if (theme.equalsIgnoreCase(getString(R.string.light)) || theme.equalsIgnoreCase("light")){
-        	Log.i(TAG, "setting theme to " + theme);
+        	Log.i("EvenBetterMusicPlayer", "setting theme to " + theme);
         	if(size.equalsIgnoreCase(getString(R.string.small)) || size.equalsIgnoreCase("small")){
         		setTheme(R.style.EBMPLightSmall);
         	} else if (size.equalsIgnoreCase(getString(R.string.medium)) || size.equalsIgnoreCase("medium")){
@@ -229,7 +228,7 @@ public class SongList extends AbstractMusicList {
 		
 		setContentView(R.layout.activity_song_list);
 		
-	    Log.i(TAG, "Getting songs for " + album);
+	    Log.i("EvenBetterMusicPlayer", "Getting songs for " + album);
 	    
 	    populateSongs(artistName, album, artistDir);
 	    
@@ -307,8 +306,8 @@ public class SongList extends AbstractMusicList {
         String theme = sharedPref.getString("pref_theme", getString(R.string.light));
         String size = sharedPref.getString("pref_text_size", getString(R.string.medium));
         boolean audiobookModePref = sharedPref.getBoolean("pref_audiobook_mode", false);
-        Log.i(TAG, "got configured theme " + theme);
-        Log.i(TAG, "Got configured size " + size);
+        Log.i("EvenBetterMusicPlayer", "got configured theme " + theme);
+        Log.i("EvenBetterMusicPlayer", "Got configured size " + size);
         if(currentTheme == null){
         	currentTheme = theme;
         } 

@@ -111,7 +111,6 @@ public class MusicPlaybackService extends Service {
 	private Looper mServiceLooper;
 	private ServiceHandler mServiceHandler;
 	private MediaPlayer mp;
-	private static final String TAG = "MusicPlaybackService";
 	private static boolean isRunning = false;
 
 	private static int uniqueid = new String("Music Playback Service")
@@ -165,13 +164,13 @@ public class MusicPlaybackService extends Service {
 
 		@Override
 		public void handleMessage(Message msg) {
-			Log.i(TAG, "ServiceHandler got a message!" + msg);
+			Log.i("EvenBetterMusicPlayer", "ServiceHandler got a message!" + msg);
 		}
 	}
 
 	@Override
 	public synchronized void onCreate() {
-		Log.i(TAG, "Music Playback Service Created!");
+		Log.i("EvenBetterMusicPlayer", "Music Playback Service Created!");
 		isRunning = true;
 		sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -187,7 +186,7 @@ public class MusicPlaybackService extends Service {
 
 			@Override
 			public void onCompletion(MediaPlayer mp) {
-				Log.i(TAG, "Song complete");
+				Log.i("EvenBetterMusicPlayer", "Song complete");
 				next();
 			}
 
@@ -256,7 +255,7 @@ public class MusicPlaybackService extends Service {
 			}
 		}, 0, 500L);
 
-		Log.i(TAG, "Registering event receiver");
+		Log.i("EvenBetterMusicPlayer", "Registering event receiver");
 		mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 		// Apparently audio registration is persistent across lots of things...
 		// restarts, installs, etc.
@@ -283,27 +282,27 @@ public class MusicPlaybackService extends Service {
 		}
 		int command = intent.getIntExtra("Message", -1);
 		if (command != -1) {
-			Log.i(TAG, "I got a message! " + command);
+			Log.i("EvenBetterMusicPlayer", "I got a message! " + command);
 			if (command == MSG_PLAYPAUSE) {
-				Log.i(TAG, "I got a playpause message");
+				Log.i("EvenBetterMusicPlayer", "I got a playpause message");
 				playPause();
 			} else if (command == MSG_PAUSE) {
-				Log.i(TAG, "I got a pause message");
+				Log.i("EvenBetterMusicPlayer", "I got a pause message");
 				pause();
 			} else if (command == MSG_PLAY) {
-				Log.i(TAG, "I got a play message");
+				Log.i("EvenBetterMusicPlayer", "I got a play message");
 				play();
 			} else if (command == MSG_NEXT) {
-				Log.i(TAG, "I got a next message");
+				Log.i("EvenBetterMusicPlayer", "I got a next message");
 				next();
 			} else if (command == MSG_PREVIOUS) {
-				Log.i(TAG, "I got a previous message");
+				Log.i("EvenBetterMusicPlayer", "I got a previous message");
 				previous();
 			} else if (command == MSG_JUMPBACK) {
-				Log.i(TAG, "I got a jumpback message");
+				Log.i("EvenBetterMusicPlayer", "I got a jumpback message");
 				jumpback();
 			} else if (command == MSG_STOP_SERVICE) {
-				Log.i(TAG, "I got a stop message");
+				Log.i("EvenBetterMusicPlayer", "I got a stop message");
 				headphoneReceiver.active = false;
 				timer.cancel();
 				stopForeground(true);
@@ -338,16 +337,16 @@ public class MusicPlaybackService extends Service {
 
 		@Override
 		public void handleMessage(Message msg) {
-			Log.i(TAG, "Music Playback service got a message!");
+			Log.i("EvenBetterMusicPlayer", "Music Playback service got a message!");
 			switch (msg.what) {
 			case MSG_REGISTER_CLIENT:
-				Log.i(TAG, "Got MSG_REGISTER_CLIENT");
+				Log.i("EvenBetterMusicPlayer", "Got MSG_REGISTER_CLIENT");
 				synchronized (_service.mClients) {
 					_service.mClients.add(msg.replyTo);
 				}
 				break;
 			case MSG_UNREGISTER_CLIENT:
-				Log.i(TAG, "Got MSG_UNREGISTER_CLIENT");
+				Log.i("EvenBetterMusicPlayer", "Got MSG_UNREGISTER_CLIENT");
 				synchronized (_service.mClients) {
 					_service.mClients.remove(msg.replyTo);
 				}
@@ -355,28 +354,28 @@ public class MusicPlaybackService extends Service {
 			case MSG_PLAYPAUSE:
 				// if we got a playpause message, assume that the user can hear
 				// what's happening and wants to switch it.
-				Log.i(TAG, "Got a playpause message!");
+				Log.i("EvenBetterMusicPlayer", "Got a playpause message!");
 				// Assume that we're not changing songs
 				_service.playPause();
 				break;
 			case MSG_NEXT:
-				Log.i(TAG, "Got a next message!");
+				Log.i("EvenBetterMusicPlayer", "Got a next message!");
 				_service.next();
 				break;
 			case MSG_PREVIOUS:
-				Log.i(TAG, "Got a previous message!");
+				Log.i("EvenBetterMusicPlayer", "Got a previous message!");
 				_service.previous();
 				break;
 			case MSG_JUMPBACK:
-				Log.i(TAG, "Got a jump back message!");
+				Log.i("EvenBetterMusicPlayer", "Got a jump back message!");
 				_service.jumpback();
 				break;
 			case MSG_TOGGLE_SHUFFLE:
-				Log.i(TAG, "Got a toggle shuffle message!");
+				Log.i("EvenBetterMusicPlayer", "Got a toggle shuffle message!");
 				_service.toggleShuffle();
 				break;
 			case MSG_SET_PLAYLIST:
-				Log.i(TAG, "Got a set playlist message!");
+				Log.i("EvenBetterMusicPlayer", "Got a set playlist message!");
 				_service.songAbsoluteFileNames = msg.getData().getStringArray(
 						SongList.SONG_ABS_FILE_NAME_LIST);
 				_service.songAbsoluteFileNamesPosition = msg.getData().getInt(
@@ -392,10 +391,10 @@ public class MusicPlaybackService extends Service {
 				_service.resetShuffle();
 				break;
 			case MSG_REQUEST_STATE:
-				Log.i(TAG, "Got a state request message!");
+				Log.i("EvenBetterMusicPlayer", "Got a state request message!");
 				break;
 			case MSG_SEEK_TO:
-				Log.i(TAG, "Got a seek request message!");
+				Log.i("EvenBetterMusicPlayer", "Got a seek request message!");
 				int progress = msg.getData().getInt(TRACK_POSITION);
 				_service.jumpTo(progress);
 				break;
@@ -420,7 +419,7 @@ public class MusicPlaybackService extends Service {
 			if(mp != null && songFile != null && mp.isPlaying()){
 				int pos = mp.getCurrentPosition();
 				SharedPreferences prefs = getSharedPreferences("EvenBetterMusicPlayer", MODE_PRIVATE);
-				Log.i(TAG,
+				Log.i("EvenBetterMusicPlayer",
 						"Preferences update success: "
 								+ prefs.edit()
 								.putString(songFile.getParentFile().getAbsolutePath(),songFile.getName() + "~" + pos)
@@ -523,7 +522,7 @@ public class MusicPlaybackService extends Service {
 				}
 				lastPosition = mp.getCurrentPosition();
 			} catch (Exception e){
-				Log.w(TAG, "Unable to seek to position, file may not have been loaded");
+				Log.w("EvenBetterMusicPlayer", "Unable to seek to position, file may not have been loaded");
 			}
 		}
 
@@ -546,7 +545,7 @@ public class MusicPlaybackService extends Service {
 		try {
 			fis.close();
 		} catch (IOException e) {
-			Log.w(TAG, "Failed to close the file");
+			Log.w("EvenBetterMusicPlayer", "Failed to close the file");
 			e.printStackTrace();
 		}
 		songAbsoluteFileNamesPosition = songAbsoluteFileNamesPosition - 1;
@@ -561,7 +560,7 @@ public class MusicPlaybackService extends Service {
 			mp.prepare();
 			mp.start();
 		} catch (IOException e) {
-			Log.w(TAG, "Failed to open " + next);
+			Log.w("EvenBetterMusicPlayer", "Failed to open " + next);
 			e.printStackTrace();
 			// Just go to the next song back
 			previous();
@@ -606,7 +605,7 @@ public class MusicPlaybackService extends Service {
 				mp.seekTo(position);
 				lastPosition = mp.getCurrentPosition();
 			} catch (Exception e){
-				Log.w(TAG, "Unable to seek to position, file may not have been loaded");
+				Log.w("EvenBetterMusicPlayer", "Unable to seek to position, file may not have been loaded");
 			}
 		}
 	}
@@ -632,16 +631,16 @@ public class MusicPlaybackService extends Service {
 					AudioManager.STREAM_MUSIC,
 					// Request permanent focus.
 					AudioManager.AUDIOFOCUS_GAIN);
-			Log.d(TAG, "requestAudioFocus result = " + result);
-			Log.i(TAG, "About to play " + songFile);
+			Log.d("EvenBetterMusicPlayer", "requestAudioFocus result = " + result);
+			Log.i("EvenBetterMusicPlayer", "About to play " + songFile);
 
 			if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
-				Log.d(TAG, "We got audio focus!");
+				Log.d("EvenBetterMusicPlayer", "We got audio focus!");
 				mp.start();
 				updateNotification();
 				wakeLock.acquire();
 			} else {
-				Log.e(TAG, "Unable to get audio focus");
+				Log.e("EvenBetterMusicPlayer", "Unable to get audio focus");
 			}
 		}
 	}
@@ -655,7 +654,7 @@ public class MusicPlaybackService extends Service {
 		//if (mp.isPlaying()) {
 		//	mp.pause();
 		//} else {
-		//	Log.w(TAG, "Odd condition - pause was called but the media player reported that it is already paused");
+		//	Log.w("EvenBetterMusicPlayer", "Odd condition - pause was called but the media player reported that it is already paused");
 		try{
 			// this is a hack, but it seems to be the most consistent way to address the problem
 			// this forces the media player to check its current state before trying to pause.
@@ -665,7 +664,7 @@ public class MusicPlaybackService extends Service {
 			mp.seekTo(position);
 			wakeLock.release();
 		} catch (Exception e){
-			Log.w(TAG, "Caught exception while trying to pause ", e);
+			Log.w("EvenBetterMusicPlayer", "Caught exception while trying to pause ", e);
 		}
 		//}
 		updateNotification();
@@ -688,9 +687,9 @@ public class MusicPlaybackService extends Service {
 	private int grabNextShuffledPosition(){
 		synchronized(shuffleFrontList){
 			int threshold = (int) Math.ceil((songAbsoluteFileNames.length + 1) / 2);
-			Log.d(TAG, "threshold: " + threshold);
+			Log.d("EvenBetterMusicPlayer", "threshold: " + threshold);
 			if(shuffleFrontList.size() < threshold){
-				Log.d(TAG, "Shuffle queue is half empty, adding a new song...");
+				Log.d("EvenBetterMusicPlayer", "Shuffle queue is half empty, adding a new song...");
 				shuffleFrontList.add(shuffleBackList.get(0));
 				shuffleBackList.remove(0);
 			}
@@ -698,7 +697,7 @@ public class MusicPlaybackService extends Service {
 			int loc = shuffleFrontList.get(rand);
 			shuffleFrontList.remove(rand);
 			shuffleBackList.add(loc);
-			Log.i(TAG, "next position is: " + loc);
+			Log.i("EvenBetterMusicPlayer", "next position is: " + loc);
 			String front = "";
 			String back = "";
 			for(int i : shuffleFrontList){
@@ -707,8 +706,8 @@ public class MusicPlaybackService extends Service {
 			for(int i : shuffleBackList){
 				back = back + "," + i;
 			}
-			Log.i(TAG, "Front list = " + front);
-			Log.i(TAG, "Back list = " + back);
+			Log.i("EvenBetterMusicPlayer", "Front list = " + front);
+			Log.i("EvenBetterMusicPlayer", "Back list = " + back);
 			return loc;
 		}
 	}
@@ -719,7 +718,7 @@ public class MusicPlaybackService extends Service {
 		try {
 			fis.close();
 		} catch (Exception e) {
-			Log.w(TAG, "Failed to close the file");
+			Log.w("EvenBetterMusicPlayer", "Failed to close the file");
 			e.printStackTrace();
 		}
 
@@ -737,7 +736,7 @@ public class MusicPlaybackService extends Service {
 			mp.prepare();
 			mp.start();
 		} catch (IOException e) {
-			Log.w(TAG, "Failed to open " + next);
+			Log.w("EvenBetterMusicPlayer", "Failed to open " + next);
 			e.printStackTrace();
 			// I think our best chance is to go to the next song
 			next();
@@ -843,9 +842,9 @@ public class MusicPlaybackService extends Service {
 		private PlaybackState stateOnFocusLoss = PlaybackState.UNKNOWN;
 
 		public void onAudioFocusChange(int focusChange) {
-			Log.w(TAG, "Focus change received " + focusChange);
+			Log.w("EvenBetterMusicPlayer", "Focus change received " + focusChange);
 			if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT) {
-				Log.i(TAG, "AUDIOFOCUS_LOSS_TRANSIENT");
+				Log.i("EvenBetterMusicPlayer", "AUDIOFOCUS_LOSS_TRANSIENT");
 				if (mp.isPlaying()) {
 					stateOnFocusLoss = PlaybackState.PLAYING;
 				} else {
@@ -856,18 +855,18 @@ public class MusicPlaybackService extends Service {
 						.currentTimeMillis();
 				// Pause playback
 			} else if (focusChange == AudioManager.AUDIOFOCUS_GAIN) {
-				Log.i(TAG, "AUDIOFOCUS_GAIN");
+				Log.i("EvenBetterMusicPlayer", "AUDIOFOCUS_GAIN");
 				// If it's been less than 20 seconds, resume playback
 				long curr = System.currentTimeMillis();
 				if (((curr - MusicPlaybackService.this.audioFocusLossTime) < 30000)
 						&& stateOnFocusLoss == PlaybackState.PLAYING) {
 					play();
 				} else {
-					Log.i(TAG,
+					Log.i("EvenBetterMusicPlayer",
 							"It's been more than 30 seconds or we were paused, don't auto-play");
 				}
 			} else if (focusChange == AudioManager.AUDIOFOCUS_LOSS) {
-				Log.i(TAG, "AUDIOFOCUS_LOSS");
+				Log.i("EvenBetterMusicPlayer", "AUDIOFOCUS_LOSS");
 				if (mp.isPlaying()) {
 					stateOnFocusLoss = PlaybackState.PLAYING;
 				} else {
@@ -878,7 +877,7 @@ public class MusicPlaybackService extends Service {
 						.currentTimeMillis();
 				// Stop playback
 			} else if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK) {
-				Log.i(TAG, "AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK");
+				Log.i("EvenBetterMusicPlayer", "AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK");
 				MusicPlaybackService.this.audioFocusLossTime = System
 						.currentTimeMillis();
 				if (mp.isPlaying()) {
@@ -888,13 +887,13 @@ public class MusicPlaybackService extends Service {
 				}
 				pause();
 			} else if (focusChange == AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK) {
-				Log.i(TAG, "AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK");
+				Log.i("EvenBetterMusicPlayer", "AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK");
 				long curr = System.currentTimeMillis();
 				if (((curr - MusicPlaybackService.this.audioFocusLossTime) < 30000)
 						&& stateOnFocusLoss == PlaybackState.PLAYING) {
 					play();
 				} else {
-					Log.i(TAG,
+					Log.i("EvenBetterMusicPlayer",
 							"It's been more than 30 seconds or we were paused, don't auto-play");
 				}
 			}
@@ -922,7 +921,7 @@ public class MusicPlaybackService extends Service {
 			}
 			SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
 			if (Intent.ACTION_HEADSET_PLUG.equals(intent.getAction())) {
-				Log.i(TAG, "Got headset plug action");
+				Log.i("EvenBetterMusicPlayer", "Got headset plug action");
 				String disconnectBehavior = sharedPref.getString("pref_disconnect_behavior", context.getString(R.string.pause_after_one_sec));
 				/*
 				 * state - 0 for unplugged, 1 for plugged. name - Headset type,
@@ -931,7 +930,7 @@ public class MusicPlaybackService extends Service {
 				 */
 				if(disconnectBehavior.equals(context.getString(R.string.resume_on_quick_reconnect))){
 					if (intent.getIntExtra("state", -1) == 0) {
-						Log.i(TAG, "headphones disconnected, pausing");
+						Log.i("EvenBetterMusicPlayer", "headphones disconnected, pausing");
 						Intent msgIntent = new Intent(context, MusicPlaybackService.class);
 						msgIntent.putExtra("Message", MusicPlaybackService.MSG_PAUSE);
 						context.startService(msgIntent);
@@ -940,7 +939,7 @@ public class MusicPlaybackService extends Service {
 						long currentTime = System.currentTimeMillis();
 						if(currentTime - resumeOnQuickReconnectDisconnectTime < 1000){
 							// Resume
-							Log.i(TAG, "headphones plugged back in within 1000ms, resuming");
+							Log.i("EvenBetterMusicPlayer", "headphones plugged back in within 1000ms, resuming");
 							Intent msgIntent = new Intent(context, MusicPlaybackService.class);
 							msgIntent.putExtra("Message", MusicPlaybackService.MSG_PLAY);
 							context.startService(msgIntent);
@@ -948,7 +947,7 @@ public class MusicPlaybackService extends Service {
 					}
 				} else if(disconnectBehavior.equals(context.getString(R.string.resume_on_reconnect))){
 					if (intent.getIntExtra("state", -1) == 0) {
-						Log.i(TAG, "headphones disconnected, pausing");
+						Log.i("EvenBetterMusicPlayer", "headphones disconnected, pausing");
 						Intent msgIntent = new Intent(context, MusicPlaybackService.class);
 						msgIntent.putExtra("Message", MusicPlaybackService.MSG_PAUSE);
 						context.startService(msgIntent);
@@ -957,7 +956,7 @@ public class MusicPlaybackService extends Service {
 						// check to make sure we were playing at one point.
 						if(resumeOnQuickReconnectDisconnectTime > 0){
 							// Resume
-							Log.i(TAG, "headphones plugged back in, resuming");
+							Log.i("EvenBetterMusicPlayer", "headphones plugged back in, resuming");
 							Intent msgIntent = new Intent(context, MusicPlaybackService.class);
 							msgIntent.putExtra("Message", MusicPlaybackService.MSG_PLAY);
 							context.startService(msgIntent);
@@ -965,21 +964,21 @@ public class MusicPlaybackService extends Service {
 					}
 				} else if(disconnectBehavior.equals(context.getString(R.string.pause_after_one_sec))){
 					if (intent.getIntExtra("state", -1) == 0) {
-						Log.i(TAG, "headphones disconnected, pausing in 1 seconds");
+						Log.i("EvenBetterMusicPlayer", "headphones disconnected, pausing in 1 seconds");
 						Intent msgIntent = new Intent(context, MusicPlaybackService.class);
 						msgIntent.putExtra("Message", MusicPlaybackService.MSG_PAUSE_IN_ONE_SEC);
 						context.startService(msgIntent);
 						// If the headphone is plugged back in quickly after being
 						// unplugged, keep playing
 					} else if (intent.getIntExtra("state", -1) == 1) {
-						Log.i(TAG, "headphones plugged back in, cancelling disconnect");
+						Log.i("EvenBetterMusicPlayer", "headphones plugged back in, cancelling disconnect");
 						Intent msgIntent = new Intent(context, MusicPlaybackService.class);
 						msgIntent.putExtra("Message", MusicPlaybackService.MSG_CANCEL_PAUSE_IN_ONE_SEC);
 						context.startService(msgIntent);
 					}
 				} else {
 					// Pause immediately
-					Log.i(TAG, "headphones disconnected, pausing");
+					Log.i("EvenBetterMusicPlayer", "headphones disconnected, pausing");
 					Intent msgIntent = new Intent(context, MusicPlaybackService.class);
 					msgIntent.putExtra("Message", MusicPlaybackService.MSG_PAUSE);
 					context.startService(msgIntent);

@@ -44,7 +44,6 @@ import java.util.Map;
 public class AlbumList extends AbstractMusicList {
 	public static final String ALBUM_NAME = "ALBUM_NAME";
 
-	private static final String TAG = "AlbumList";
 	private List<Map<String,String>> albums;
 	private BaseAdapter listAdapter;
 
@@ -57,9 +56,9 @@ public class AlbumList extends AbstractMusicList {
 		albums = new ArrayList<Map<String,String>>();
 		
 		File artist = new File(artistPath);
-		Log.d(TAG, "storage directory = " + artist);
+		Log.d("EvenBetterMusicPlayer", "storage directory = " + artist);
 		if(!artist.isDirectory() || (artist.listFiles() == null)){
-			Log.e(TAG, "Invalid artist directory provided: " +  artistPath);
+			Log.e("EvenBetterMusicPlayer", "Invalid artist directory provided: " +  artistPath);
 			Toast.makeText(getApplicationContext(), "The selected directory is empty", Toast.LENGTH_SHORT).show();
 			return;
 		}
@@ -69,7 +68,7 @@ public class AlbumList extends AbstractMusicList {
 			if(Utils.isValidAlbumDirectory(albumFile)){
 				albumFiles.add(albumFile);
 			} else {
-				Log.v(TAG, "Found invalid album " + albumFile);
+				Log.v("EvenBetterMusicPlayer", "Found invalid album " + albumFile);
 			}
 		}
 		
@@ -86,7 +85,7 @@ public class AlbumList extends AbstractMusicList {
 		
 		for(File albumFile : albumFiles){
 			String album = albumFile.getName();
-			Log.v(TAG, "Adding album " + album);
+			Log.v("EvenBetterMusicPlayer", "Adding album " + album);
 			Map<String,String> map = new HashMap<String, String>();
 			map.put("album", album);			
 			albums.add(map);
@@ -124,13 +123,13 @@ public class AlbumList extends AbstractMusicList {
 		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         String theme = sharedPref.getString("pref_theme", getString(R.string.light));
         String size = sharedPref.getString("pref_text_size", getString(R.string.medium));
-        Log.i(TAG, "got configured theme " + theme);
-        Log.i(TAG, "got configured size " + size);
+        Log.i("EvenBetterMusicPlayer", "got configured theme " + theme);
+        Log.i("EvenBetterMusicPlayer", "got configured size " + size);
         currentTheme = theme;
         currentSize = size;
         // These settings were fixed in english for a while, so check for old style settings as well as language specific ones.
         if(theme.equalsIgnoreCase(getString(R.string.dark)) || theme.equalsIgnoreCase("dark")){
-        	Log.i(TAG, "setting theme to " + theme);
+        	Log.i("EvenBetterMusicPlayer", "setting theme to " + theme);
         	if(size.equalsIgnoreCase(getString(R.string.small)) || size.equalsIgnoreCase("small")){
         		setTheme(R.style.EBMPDarkSmall);
         	} else if (size.equalsIgnoreCase(getString(R.string.medium)) || size.equalsIgnoreCase("medium")){
@@ -139,7 +138,7 @@ public class AlbumList extends AbstractMusicList {
         		setTheme(R.style.EBMPDarkLarge);
         	}
         } else if (theme.equalsIgnoreCase(getString(R.string.light)) || theme.equalsIgnoreCase("light")){
-        	Log.i(TAG, "setting theme to " + theme);
+        	Log.i("EvenBetterMusicPlayer", "setting theme to " + theme);
         	if(size.equalsIgnoreCase(getString(R.string.small)) || size.equalsIgnoreCase("small")){
         		setTheme(R.style.EBMPLightSmall);
         	} else if (size.equalsIgnoreCase(getString(R.string.medium)) || size.equalsIgnoreCase("medium")){
@@ -151,7 +150,7 @@ public class AlbumList extends AbstractMusicList {
 		setContentView(R.layout.activity_album_list);
 		
 		 // Get the message from the intent
-	    Log.i(TAG, "Getting albums for " + artist);
+	    Log.i("EvenBetterMusicPlayer", "Getting albums for " + artist);
 	    
 	    final String artistPath = intent.getStringExtra(ArtistList.ARTIST_ABS_PATH_NAME);
 	    populateAlbums(artist, artistPath);
@@ -183,8 +182,8 @@ public class AlbumList extends AbstractMusicList {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         String theme = sharedPref.getString("pref_theme", getString(R.string.light));
         String size = sharedPref.getString("pref_text_size", getString(R.string.medium));
-        Log.i(TAG, "got configured theme " + theme);
-        Log.i(TAG, "Got configured size " + size);
+        Log.i("EvenBetterMusicPlayer", "got configured theme " + theme);
+        Log.i("EvenBetterMusicPlayer", "Got configured size " + size);
         if(currentTheme == null){
         	currentTheme = theme;
         } 
